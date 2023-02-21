@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 html,
-body,
-#root {
+body {
   background: #1c2129;
   color: azure;
   height: 100vh;
