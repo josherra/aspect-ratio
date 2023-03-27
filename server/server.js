@@ -1,7 +1,11 @@
 const express = require("express");
-const igdb = require("igdb-api-node").default;
 const cors = require("cors");
 const checkAccessToken = require("./middleware/accessToken");
+
+// Route handlers
+const search = require("./routes/search");
+const games = require("./routes/games");
+const platforms = require("./routes/platforms");
 
 // Import env variables
 require("dotenv").config();
@@ -13,26 +17,12 @@ const port = 8000;
 // Middlware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/games", checkAccessToken, async (req, res) => {
-  const client = igdb(process.env.TWITCH_CLIENT_ID, req.headers.authorization);
-  const response = await (
-    await client.fields(["*"]).where("version_parent = null").request("/games")
-  ).data;
-  res.json(response);
-});
-
-app.get("/api/");
-
-app.post("/api/search", checkAccessToken, async (req, res) => {
-  const client = igdb(process.env.TWITCH_CLIENT_ID, req.headers.authorization);
-  const response = await await client
-    .fields(["name", "id", "platforms.name"])
-    .where("version_parent = null")
-    .search(req.body.game)
-    .request("/games");
-  res.json(response.data);
-});
+// Routes
+app.use("/api/search", checkAccessToken, search);
+app.use("/api/games", checkAccessToken, games);
+app.use("/api/platforms", checkAccessToken, platforms);
 
 // Listening for calls
 app.listen(port, () => {
