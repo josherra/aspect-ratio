@@ -6,7 +6,7 @@ const CatalogueSchema = new Schema({
   description: String,
   games: [{ id: Schema.Types.ObjectId }],
   owner: String,
-  created: Date.now,
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Catalgoue", CatalogueSchema);

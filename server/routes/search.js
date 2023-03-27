@@ -10,8 +10,8 @@ router.post("/games", async (req, res) => {
   const { game } = req.body;
   const client = igdb(process.env.TWITCH_CLIENT_ID, req.headers.authorization);
   const response = await await client
-    .fields(["name", "id", "platforms.name"])
-    .where("version_parent = null")
+    .fields("name, id, platforms.name")
+    .where("version_parent = null & category = 0")
     .search(game)
     .limit(20)
     .request("/games");

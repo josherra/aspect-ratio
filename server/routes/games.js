@@ -1,5 +1,6 @@
 const express = require("express");
 const igdb = require("igdb-api-node").default;
+const gamesController = require("../controllers/gamesController");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -9,5 +10,7 @@ router.get("/", async (req, res) => {
   ).data;
   res.json(response);
 });
+
+router.get("/:id", gamesController.getGameByID);
 
 module.exports = router;

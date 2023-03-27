@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const checkAccessToken = require("./middleware/accessToken");
+const Catalogue = require("./models/Catalogue");
+const mongoose = require("mongoose");
 
 // Route handlers
 const search = require("./routes/search");
@@ -10,7 +12,13 @@ const platforms = require("./routes/platforms");
 // Import env variables
 require("dotenv").config();
 
-// Setup express application
+// Setup express application and MongoDB connection
+mongoose.set("strictQuery", false);
+mongoose.connect(process.env.DB_URL);
+mongoose.connection.on("error", (err) => {
+  console.error(err);
+});
+
 const app = express();
 const port = 8000;
 
