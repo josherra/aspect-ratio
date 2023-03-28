@@ -1,13 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const { errorHandler } = require("./middleware/errorHandler");
 const checkAccessToken = require("./middleware/accessToken");
-const Catalogue = require("./models/Catalogue");
 const mongoose = require("mongoose");
 
 // Route handlers
 const search = require("./routes/search");
 const games = require("./routes/games");
 const platforms = require("./routes/platforms");
+const catalogue = require("./routes/catalogue");
+const auth = require("./routes/auth");
 
 // Import env variables
 require("dotenv").config();
@@ -31,7 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/search", checkAccessToken, search);
 app.use("/api/games", checkAccessToken, games);
 app.use("/api/platforms", checkAccessToken, platforms);
+app.use("/api/catalogue", catalogue);
+app.use("/api/auth", auth);
 
+app.use(errorHandler);
 // Listening for calls
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
