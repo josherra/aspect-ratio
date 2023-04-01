@@ -6,6 +6,11 @@ const getAllCatalogues = async (req, res) => {
   res.json(catalogues);
 };
 
+/**
+ * Create a new catalogue of games.
+ * @param {*} req
+ * @param {*} res
+ */
 const createNewCatalogue = async (req, res) => {
   console.log(req.user);
 

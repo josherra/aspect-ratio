@@ -2,6 +2,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
+/**
+ * Registers a user using username, password, and name.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 const registerUser = async (req, res, next) => {
   try {
     const { name, username, password } = req.body;
@@ -45,6 +52,12 @@ const registerUser = async (req, res, next) => {
   }
 };
 
+/**
+ * Login a user and return their token for accessing protected routes.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 const loginUser = async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -69,6 +82,11 @@ const loginUser = async (req, res, next) => {
   }
 };
 
+/**
+ * Get information for a logged in user.
+ * @param {*} req
+ * @param {*} res
+ */
 const getMe = async (req, res) => {
   const { _id, name, username } = await User.findById(req.user.id);
 
@@ -79,6 +97,11 @@ const getMe = async (req, res) => {
   });
 };
 
+/**
+ * Generates a signed JWT to be used for protected routes.
+ * @param {*} id
+ * @returns
+ */
 const generateJWT = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
