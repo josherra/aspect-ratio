@@ -1,39 +1,42 @@
 const express = require("express");
-const igdb = require("igdb-api-node").default;
 const cors = require("cors");
+const { errorHandler } = require("./middleware/errorHandler");
 const checkAccessToken = require("./middleware/accessToken");
+const mongoose = require("mongoose");
+
+// Route handlers
+const search = require("./routes/search");
+const games = require("./routes/games");
+const platforms = require("./routes/platforms");
+const catalogue = require("./routes/catalogue");
+const auth = require("./routes/auth");
 
 // Import env variables
 require("dotenv").config();
 
-// Setup express application
+// Setup express application and MongoDB connection
+mongoose.set("strictQuery", false);
+mongoose.connect(process.env.DB_URL);
+mongoose.connection.on("error", (err) => {
+  console.error(err);
+});
+
 const app = express();
 const port = 8000;
 
 // Middlware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/games", checkAccessToken, async (req, res) => {
-  const client = igdb(process.env.TWITCH_CLIENT_ID, req.headers.authorization);
-  const response = await (
-    await client.fields(["*"]).where("version_parent = null").request("/games")
-  ).data;
-  res.json(response);
-});
+// Routes
+app.use("/api/search", checkAccessToken, search);
+app.use("/api/games", checkAccessToken, games);
+app.use("/api/platforms", checkAccessToken, platforms);
+app.use("/api/catalogue", catalogue);
+app.use("/api/auth", auth);
 
-app.get("/api/");
-
-app.post("/api/search", checkAccessToken, async (req, res) => {
-  const client = igdb(process.env.TWITCH_CLIENT_ID, req.headers.authorization);
-  const response = await await client
-    .fields(["name", "id", "platforms.name"])
-    .where("version_parent = null")
-    .search(req.body.game)
-    .request("/games");
-  res.json(response.data);
-});
-
+app.use(errorHandler);
 // Listening for calls
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
