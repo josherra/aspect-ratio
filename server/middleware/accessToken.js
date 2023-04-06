@@ -30,6 +30,7 @@ async function checkAccessToken(req, res, next) {
       req.headers.authorization = `${accessToken}`;
       next();
     } catch (error) {
+      console.error(error.message);
       res.status(500).send(error.message);
     }
   } else {

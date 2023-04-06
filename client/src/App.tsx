@@ -1,25 +1,13 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  Avatar,
-  Box,
-  Card,
-  Fade,
-  ImageList,
-  ImageListItem,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 import { Container } from "@mui/system";
 import { SetStateAction, useState, useEffect } from "react";
-import { Navigation } from "./components/Navigation";
 import axios from "axios";
 import { IGame } from "./types/Game";
+import { Navigation } from "./components/Navigation";
 import { Search } from "./components/Search";
+import { Login } from "./components/Login";
 
 function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -88,31 +76,21 @@ const App = () => {
       <CssBaseline />
       <Container style={{ border: "2px solid red", padding: "1rem" }}>
         <Navigation />
-        <Search
-          games={games}
-          handleQuery={handleQuery}
-          query={query}
-          addItemToList={addItemToList}
-          isSearching={isSearching}
-        />
-        <Typography variant="h3">My list of games:</Typography>
-        {myList.length > 0 ? (
-          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-            {myList.map((game) => (
-              <ImageListItem key={game.id}>
-                <img
-                  style={{ cursor: "pointer" }}
-                  onClick={() => removeItemFromList(game)}
-                  src={`${game.cover.url}`}
-                  alt={game.name}
-                  loading="lazy"
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        ) : (
-          <p>Add some games above!</p>
-        )}
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <Search
+                games={games}
+                handleQuery={handleQuery}
+                query={query}
+                addItemToList={addItemToList}
+                isSearching={isSearching}
+              />
+            }
+          ></Route>
+        </Routes>
       </Container>
     </ThemeProvider>
   );
