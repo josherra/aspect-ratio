@@ -36,6 +36,9 @@ export const Navigation = () => {
         <Button variant="contained" component={Link} to="/">
           Home
         </Button>
+        <Button variant="contained" component={Link} to="/admin">
+          Admin
+        </Button>
       </AppBar>
     </Box>
   );

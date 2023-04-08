@@ -1,14 +1,16 @@
+// Routing
 const express = require("express");
-const { protect } = require("../middleware/authHandler");
 const router = express.Router();
+
+// Auth middleware
+const { protect } = require("../middleware/authHandler");
+
+// Controllers
 const {
   createNewCatalogue,
   getAllCatalogues,
   addGameToCatalogue,
 } = require("../controllers/catalogueController");
-
-// Models
-const Catalogue = require("../models/Catalogue");
 
 // Routes
 router.get("/", protect, getAllCatalogues);

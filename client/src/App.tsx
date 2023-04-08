@@ -1,38 +1,16 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Routes, Route } from "react-router-dom";
-import { Container } from "@mui/system";
-import { SetStateAction, useState, useEffect } from "react";
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
+import { SetStateAction, useState, useEffect } from "react";
 import { IGame } from "./types/Game";
-import { Navigation } from "./components/Navigation";
-import { Search } from "./components/Search";
+import { useDebounce } from "./hooks/useDebounce";
 import { Login } from "./components/Login";
-
-function useDebounce(value: string, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+import { Home } from "./components/Home";
+import { Admin } from "./components/Admin";
+import { Missing } from "./components/Missing";
+import { Layout } from "./components/Layout";
+import { RequireAuth } from "./components/RequireAuth";
 
 const App = () => {
-  const [myList, setMyList] = useState<[IGame]>([]);
   const [games, setGames] = useState<[IGame]>([]);
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -59,40 +37,22 @@ const App = () => {
     setQuery(e.target.value);
   };
 
-  const addItemToList = (game: any) => {
-    setMyList(myList.concat(game));
-    setQuery("");
-    setGames([]);
-  };
-
-  const removeItemFromList = (game: any) => {
-    const filtered = myList.filter((g) => g.id !== game.id);
-    console.log(filtered);
-    setMyList(filtered);
-  };
-
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Container style={{ border: "2px solid red", padding: "1rem" }}>
-        <Navigation />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/"
-            element={
-              <Search
-                games={games}
-                handleQuery={handleQuery}
-                query={query}
-                addItemToList={addItemToList}
-                isSearching={isSearching}
-              />
-            }
-          ></Route>
-        </Routes>
-      </Container>
-    </ThemeProvider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+
+        {/* we want to protect these routes */}
+        <Route element={<RequireAuth />}>
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 };
 

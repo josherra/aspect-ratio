@@ -12,16 +12,14 @@ const getAllCatalogues = async (req, res) => {
  * @param {*} res
  */
 const createNewCatalogue = async (req, res) => {
-  console.log(req.user);
-
   const newCatalogue = new Catalogue({
     user: req.user.id,
-    title: "This is a new title",
+    title: "This is a differentnew title",
     description: "This is the description im setting for this one",
     games: [],
   });
 
-  // await Catalogue.create(newCatalogue);
+  await Catalogue.create(newCatalogue);
 
   res.json(newCatalogue);
 };

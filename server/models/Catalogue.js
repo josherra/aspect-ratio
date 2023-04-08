@@ -11,4 +11,4 @@ const catalogueSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Catalgoue", catalogueSchema);
+module.exports = mongoose.model("Catalogue", catalogueSchema);
