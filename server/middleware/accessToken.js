@@ -26,7 +26,6 @@ async function checkAccessToken(req, res, next) {
   if (!accessToken || new Date().getTime() > tokenExpirationTime) {
     try {
       let newAccessToken = await getNewAccessToken();
-      console.log("Using new access token");
       req.headers.authorization = `${accessToken}`;
       next();
     } catch (error) {
@@ -34,7 +33,6 @@ async function checkAccessToken(req, res, next) {
       res.status(500).send(error.message);
     }
   } else {
-    console.log("Using saved token");
     req.headers.authorization = `${accessToken}`;
     next();
   }

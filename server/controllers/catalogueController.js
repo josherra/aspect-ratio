@@ -1,9 +1,25 @@
 const Catalogue = require("../models/Catalogue");
 
+/**
+ * Get all catalogues.
+ * @param {*} req
+ * @param {*} res
+ */
 const getAllCatalogues = async (req, res) => {
   const catalogues = await Catalogue.find({});
 
   res.json(catalogues);
+};
+
+/**
+ * Get the catalogue for the current user.
+ * @param {*} req
+ * @param {*} res
+ */
+const getOneCatalogue = async (req, res) => {
+  const userCatalogue = await Catalogue.findOne({ user: req.user.id });
+
+  res.json(userCatalogue);
 };
 
 /**
@@ -24,22 +40,27 @@ const createNewCatalogue = async (req, res) => {
   res.json(newCatalogue);
 };
 
+/**
+ * Add a game to a user's catalogue.
+ * @param {*} req
+ * @param {*} res
+ */
 const addGameToCatalogue = async (req, res) => {
   try {
-    const catalogueToUpdate = await Catalogue.findById(req.params.id);
+    const catalogueToUpdate = await Catalogue.findOne({ user: req.user.id });
 
     if (!catalogueToUpdate) {
       res.status(400);
-      throw new Error(`Catalogue with ID of ${req.params.id} does not exist.`);
+      throw new Error(`Catalogue does not exist for user.`);
     }
 
     const newGame = {
-      name: "Zelda",
+      name: "Other game",
       id: "534ertfsdgg",
     };
 
-    const newCatalogue = await Catalogue.findByIdAndUpdate(
-      req.params.id,
+    const newCatalogue = await Catalogue.findOneAndUpdate(
+      { user: req.user.id },
       {
         $push: { games: newGame },
       },
@@ -52,4 +73,31 @@ const addGameToCatalogue = async (req, res) => {
   }
 };
 
-module.exports = { createNewCatalogue, getAllCatalogues, addGameToCatalogue };
+const markCatalogueInactive = async (req, res) => {
+  try {
+    const foundCatalogue = await Catalogue.findOne({ user: req.user.id });
+
+    if (!foundCatalogue) {
+      res.status(400);
+      throw new Error(`Catalogue does not exist for user.`);
+    }
+
+    const inactiveCatalogue = await Catalogue.findOneAndUpdate(
+      {
+        user: req.user.id,
+      },
+      { active: false }
+    );
+
+    res.json(inactiveCatalogue);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = {
+  createNewCatalogue,
+  getAllCatalogues,
+  addGameToCatalogue,
+  getOneCatalogue,
+};

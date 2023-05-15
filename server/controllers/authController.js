@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const Catalogue = require("../models/Catalogue");
 
 /**
  * Registers a user using username, password, and name.
@@ -37,6 +38,14 @@ const registerUser = async (req, res, next) => {
       password: hashedPassword,
     });
 
+    // Create a catalogue for the user
+    const newCatalogue = new Catalogue({
+      user: user.id,
+      games: [],
+    });
+
+    await Catalogue.create(newCatalogue);
+
     if (user) {
       res.status(201).json({
         _id: user.id,
@@ -66,7 +75,11 @@ const loginUser = async (req, res, next) => {
     const user = await User.findOne({ username });
 
     // If user exists and passwords match
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (
+      user &&
+      user.active &&
+      (await bcrypt.compare(password, user.password))
+    ) {
       res.json({
         _id: user.id,
         name: user.name,

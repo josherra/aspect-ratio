@@ -10,11 +10,12 @@ const {
   createNewCatalogue,
   getAllCatalogues,
   addGameToCatalogue,
+  getOneCatalogue,
 } = require("../controllers/catalogueController");
 
 // Routes
 router.get("/", protect, getAllCatalogues);
-router.post("/", protect, createNewCatalogue);
-router.put("/:id", addGameToCatalogue);
+router.get("/userCatalogue", protect, getOneCatalogue);
+router.post("/add", protect, addGameToCatalogue);
 
 module.exports = router;
