@@ -8,7 +8,9 @@ const searchForGames = async (req, res) => {
 
   const client = igdb(process.env.TWITCH_CLIENT_ID, req.headers.authorization);
   const response = await client
-    .fields("name, id, platforms.name, platforms.category, cover.image_id")
+    .fields(
+      "name, id, platforms.name, platforms.category, cover.image_id, release_dates"
+    )
     .where("version_parent = null & category = 0 & platforms.category != (2,3)")
     .search(game)
     .limit(limit)

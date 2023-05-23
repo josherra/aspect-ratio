@@ -1,0 +1,19 @@
+.search-results {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-item {
+  margin: 1rem 0;
+  border: 2px solid red;
+  height: 250px;
+  width: 800px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+img {
+  height: 100%;
+}

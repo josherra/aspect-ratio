@@ -1,0 +1,22 @@
+.hero-section {
+  display: flex;
+  margin-top: 10rem;
+  flex-direction: column;
+}
+
+.boxing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  gap: 10px;
+}
+
+.boxing div {
+  background: #232323;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  width: 300px;
+  height: 200px;
+}

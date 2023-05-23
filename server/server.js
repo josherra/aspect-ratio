@@ -22,10 +22,10 @@ mongoose.connection.on("error", (err) => {
 });
 
 const app = express();
-const port = 8000;
+const port = 8080;
 
 // Middlware
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:8000", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
