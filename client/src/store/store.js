@@ -17,5 +17,6 @@ export const useCatalogueStore = create(
     history: [],
     addToCatalogue: (data) =>
       set((state) => ({ catalogue: state.catalogue.push(data) })),
+    setUserCatalogue: (data) => set({ catalogue: data }),
   }))
 );

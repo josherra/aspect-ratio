@@ -1,8 +1,6 @@
-import { useAuthStore } from "../../store/store";
 import "../../assets/header.css";
 
-export const Header = () => {
-  const user = useAuthStore((state) => state.user);
+export const Header = ({ user }) => {
   return (
     <header className="header">
       {user ? (
