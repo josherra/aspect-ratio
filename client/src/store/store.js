@@ -13,7 +13,7 @@ export const useAuthStore = create(
 
 export const useCatalogueStore = create(
   devtools((set) => ({
-    catalogue: {},
+    catalogue: [],
     history: [],
     addToCatalogue: (data) =>
       set((state) => ({ catalogue: state.catalogue.push(data) })),

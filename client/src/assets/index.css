@@ -9,6 +9,15 @@ body {
   background: #eceee3;
 }
 
+.error-message {
+  font-weight: bold;
+  position: absolute;
+  color: red;
+  background: #ffffff;
+  padding: 1rem;
+  bottom: 0;
+}
+
 .container {
   margin: 0 auto;
   max-width: 1000px;
@@ -60,4 +69,41 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.login-container {
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.login-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.login-info form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.login-info input {
+  width: 400px;
+  padding: 1rem 2rem;
+}
+
+.login-info button {
+  width: 200px;
+  padding: 0px 20px;
+  line-height: 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  height: 40px;
 }

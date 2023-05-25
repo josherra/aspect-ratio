@@ -48,16 +48,12 @@ const createNewCatalogue = async (req, res) => {
 const addGameToCatalogue = async (req, res) => {
   try {
     const catalogueToUpdate = await Catalogue.findOne({ user: req.user.id });
+    const newGame = req.body.game;
 
     if (!catalogueToUpdate) {
       res.status(400);
       throw new Error(`Catalogue does not exist for user.`);
     }
-
-    const newGame = {
-      name: "Other game",
-      id: "534ertfsdgg",
-    };
 
     const newCatalogue = await Catalogue.findOneAndUpdate(
       { user: req.user.id },

@@ -5,6 +5,7 @@ import { Login } from "./components/Login";
 import { Home } from "./pages/Home";
 import { Admin } from "./components/Admin";
 import { Missing } from "./components/Missing";
+import { GameDetail } from "./components/Game/GameDetail";
 import { Search } from "./pages/Search";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/game/:id" element={<GameDetail />} />
 
         {/* we want to protect these routes */}
         <Route element={<RequireAuth />}>
