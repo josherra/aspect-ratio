@@ -1,40 +1,40 @@
-import { useAuthStore, useCatalogueStore } from "../../store/store";
+import { useAuthStore, useLibraryStore } from "../../store/store";
 import { Link } from "react-router-dom";
 import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 
 export const SearchItem = ({ game }) => {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const addToCatalogue = useCatalogueStore((state) => state.addToCatalogue);
-  const catalogue = useCatalogueStore((state) => state.catalogue);
+  const addToLibrary = useLibraryStore((state) => state.addToLibrary);
+  const library = useLibraryStore((state) => state.library);
   const axiosPrivate = useAxiosPrivate();
-  const [inUserCatalogue, setInUserCatalogue] = useState(false);
+  const [inUserLibrary, setInUserLibrary] = useState(false);
 
-  const addGameToCatalogue = async () => {
-    setInUserCatalogue(true);
-    await axiosPrivate.post("/api/catalogue/add", { game });
-    addToCatalogue(game);
+  const addGameToLibrary = async () => {
+    setInUserLibrary(true);
+    await axiosPrivate.post("/api/library/add", { game });
+    addToLibrary(game);
   };
 
   useEffect(() => {
     if (isLoggedIn) {
-      const found = catalogue.find((g) => g.id === game.id);
+      const found = library.find((g) => g.id === game.id);
       if (found) {
-        setInUserCatalogue(true);
+        setInUserLibrary(true);
       }
     }
   }, []);
 
   return (
-    <div className="search-item">
+    <div>
       <Link to={`/game/${game.id}`}>
         <img src={game.cover.url} alt="" />
       </Link>
       <div>
         <p>{game.name}</p>
         {isLoggedIn ? (
-          <button disabled={inUserCatalogue} onClick={addGameToCatalogue}>
-            {inUserCatalogue ? "Already added" : "Add to catalogue"}
+          <button disabled={inUserLibrary} onClick={addGameToLibrary}>
+            {inUserLibrary ? "Already added" : "Add to library"}
           </button>
         ) : (
           <Link to="/login">Login to add</Link>

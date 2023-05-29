@@ -1,5 +1,3 @@
-import "../../assets/header.css";
-
 export const Header = ({ user }) => {
   return (
     <header className="header">

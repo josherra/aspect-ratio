@@ -1,31 +1,32 @@
 import { useEffect } from "react";
 import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
-import { useCatalogueStore } from "../../store/store";
+import { useLibraryStore } from "../../store/store";
 import { Link } from "react-router-dom";
 
-export const UserCatalogue = () => {
+export const UserLibrary = () => {
   const axiosPrivate = useAxiosPrivate();
-  const setUserCatalogue = useCatalogueStore((state) => state.setUserCatalogue);
-  const catalogue = useCatalogueStore((state) => state.catalogue);
+  const setUserLibrary = useLibraryStore((state) => state.setUserLibrary);
+  const library = useLibraryStore((state) => state.library);
 
-  const getUserCatalogue = async () => {
+  const fetchUserLibrary = async () => {
     try {
-      const res = await axiosPrivate.get("/api/catalogue/userCatalogue");
-      setUserCatalogue(res.data.games);
+      const res = await axiosPrivate.get("/api/library/userLibrary");
+      setUserLibrary(res.data.games);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getUserCatalogue();
+    fetchUserLibrary();
   }, []);
 
   return (
     <>
       <h1>Users games go here</h1>
-      {catalogue.length > 0 &&
-        catalogue.map((game) => (
+      <p>{library.length}</p>
+      {library.length > 0 &&
+        library.map((game) => (
           <Link to={`/game/${game.id}`}>
             <img
               style={{ width: "200px", height: "auto" }}

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const catalogueSchema = new Schema(
+const librarySchema = new Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     games: [
@@ -15,6 +15,7 @@ const catalogueSchema = new Schema(
           image_id: String,
           url: String,
         },
+        dateAddedToCatalog: { type: Date, required: true },
       },
     ],
     active: { type: Boolean, default: true },
@@ -22,4 +23,4 @@ const catalogueSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Catalogue", catalogueSchema);
+module.exports = mongoose.model("Library", librarySchema);

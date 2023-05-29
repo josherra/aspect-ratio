@@ -16,7 +16,6 @@ export const SearchHome = () => {
     <>
       <input
         value={query}
-        className="search"
         type="text"
         placeholder="Search for any game..."
         onKeyDown={handleSearchRedirect}
