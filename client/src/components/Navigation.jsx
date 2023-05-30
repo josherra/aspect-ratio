@@ -11,7 +11,7 @@ export const Navigation = () => {
 
   return (
     <>
-      <Navbar variant="dark" className="p-4">
+      <Navbar bg="dark" variant="dark" className="p-4">
         <Container>
           <Navbar.Brand>Aspect Ratio</Navbar.Brand>
           <Nav>

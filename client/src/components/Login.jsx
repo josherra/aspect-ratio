@@ -5,7 +5,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import image from "../assets/images/dungeon_preview.gif";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import Image from "react-bootstrap/Image";
 
 export const Login = () => {
   const login = useAuthStore((state) => state.login);
@@ -45,27 +45,35 @@ export const Login = () => {
 
   return (
     <>
-      <Form.Label htmlFor="username">Username</Form.Label>
-      <InputGroup>
-        <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-        <Form.Control
-          placeholder="Username"
-          aria-label="Username"
-          id="username"
-          aria-describedby="basic-addon1"
-        />
-      </InputGroup>
-      <Form.Label htmlFor="inputPassword">Password</Form.Label>
-      <Form.Control
-        type="password"
-        id="inputPassword"
-        aria-describedby="passwordHelpBlock"
-      />
-      <Form.Text id="passwordHelpBlock" muted>
-        Your password must be 8-20 characters long, contain letters and numbers,
-        and must not contain spaces, special characters, or emoji.
-      </Form.Text>
-      <Button>Submit</Button>
+      <div className="login-container">
+        <Image src={image} fluid roundedCircle />
+        <Form className="container-info">
+          <h1>Login</h1>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              onChange={handleInput}
+              name="username"
+              value={details.username}
+              type="text"
+              placeholder="Username"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onChange={handleInput}
+              name="password"
+              value={details.password}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Group>
+          <Button onClick={submitLogin} type="submit">
+            Submit
+          </Button>
+        </Form>
+      </div>
     </>
     // <div className="login-container">
     //   <img src={image} alt="" />
