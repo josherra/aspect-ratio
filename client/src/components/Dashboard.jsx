@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAuthStore, useLibraryStore } from "../store/store";
 import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -8,6 +9,7 @@ export const Dashboard = () => {
   const setUserLibrary = useLibraryStore((state) => state.setUserLibrary);
   const library = useLibraryStore((state) => state.library);
   const recentActivity = library ? library.slice(0, 4) : null;
+  const navigation = useNavigate();
 
   const fetchUserLibrary = async () => {
     try {
@@ -46,7 +48,11 @@ export const Dashboard = () => {
         </p>
         <section className="p-4 flex gap-5">
           {recentActivity.map((game) => (
-            <img className="game-box" src={game.cover.url} />
+            <img
+              onClick={() => navigation(`/game/${game.id}`)}
+              className="game-box hover:cursor-pointer"
+              src={game.cover.url}
+            />
           ))}
         </section>
       </div>
