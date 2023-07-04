@@ -52,6 +52,7 @@ const registerUser = async (req, res, next) => {
         name: user.name,
         username: user.username,
         token: generateJWT(user._id),
+        createdAt: user.createdAt,
       });
     } else {
       return res.status(400).json({ message: "Invalid user data" });
@@ -85,6 +86,7 @@ const loginUser = async (req, res, next) => {
         name: user.name,
         username: user.username,
         token: generateJWT(user._id),
+        createdAt: user.createdAt,
       });
     } else {
       res.status(400);

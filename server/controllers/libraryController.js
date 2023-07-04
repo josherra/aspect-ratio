@@ -45,7 +45,7 @@ const createNewLibrary = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const addGameToLibrary = async (req, res) => {
+const addGameToLibrary = async (req, res, next) => {
   try {
     const libraryToUpdate = await Library.findOne({ user: req.user.id });
     const newGame = req.body.game;

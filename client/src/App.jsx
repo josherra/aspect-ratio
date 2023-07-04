@@ -1,18 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import { RequireAuth } from "./components/RequireAuth";
 import { Layout } from "./components/Layout";
-import { Login } from "./components/Login";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Admin } from "./components/Admin";
-import { Missing } from "./components/Missing";
+import { Missing } from "./pages/Missing";
 import { GameDetail } from "./components/Game/GameDetail";
 import { Search } from "./pages/Search";
-import { Register } from "./components/Register";
-import Container from "react-bootstrap/esm/Container";
 
 function App() {
   return (
-    <Container>
+    <>
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
@@ -31,7 +30,7 @@ function App() {
           <Route path="*" element={<Missing />} />
         </Route>
       </Routes>
-    </Container>
+    </>
   );
 }
 

@@ -9,7 +9,7 @@ const librarySchema = new Schema(
         id: Number,
         name: String,
         platforms: [{ id: String, category: String, name: String }],
-        release_dates: [Number],
+        release_dates: [{}],
         cover: {
           id: Number,
           image_id: String,

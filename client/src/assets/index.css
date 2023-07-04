@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply bg-main text-white;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+input {
+  @apply text-main;
+}
+
+body,
+#root,
+html {
+  height: 100%;
+}
+
+/* Custom styles */
+.game-box {
+  width: 150px;
+  height: 200px;
+  background: white;
+}
