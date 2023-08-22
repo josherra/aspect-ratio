@@ -11,11 +11,12 @@ export const useAuthStore = create(
   }))
 );
 
-export const useCatalogueStore = create(
+export const useLibraryStore = create(
   devtools((set) => ({
-    catalogue: {},
+    library: [],
     history: [],
-    addToCatalogue: (data) =>
-      set((state) => ({ catalogue: state.catalogue.push(data) })),
+    addToLibrary: (data) =>
+      set((state) => ({ library: state.library.push(data) })),
+    setUserLibrary: (data) => set({ library: data }),
   }))
 );

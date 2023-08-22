@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const search = require("./routes/search");
 const games = require("./routes/games");
 const platforms = require("./routes/platforms");
-const catalogue = require("./routes/catalogue");
+const library = require("./routes/library");
 const auth = require("./routes/auth");
 
 // Import env variables
@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/search", checkAccessToken, search);
 app.use("/api/games", checkAccessToken, games);
 app.use("/api/platforms", checkAccessToken, platforms);
-app.use("/api/catalogue", catalogue);
+app.use("/api/library", library);
 app.use("/api/auth", auth);
 
 app.use(errorHandler);

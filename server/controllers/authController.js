@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
-const Catalogue = require("../models/Catalogue");
+const Library = require("../models/Library");
 
 /**
  * Registers a user using username, password, and name.
@@ -38,13 +38,13 @@ const registerUser = async (req, res, next) => {
       password: hashedPassword,
     });
 
-    // Create a catalogue for the user
-    const newCatalogue = new Catalogue({
+    // Create a library for the user
+    const newLibrary = new Library({
       user: user.id,
       games: [],
     });
 
-    await Catalogue.create(newCatalogue);
+    await Library.create(newLibrary);
 
     if (user) {
       res.status(201).json({
@@ -52,6 +52,7 @@ const registerUser = async (req, res, next) => {
         name: user.name,
         username: user.username,
         token: generateJWT(user._id),
+        createdAt: user.createdAt,
       });
     } else {
       return res.status(400).json({ message: "Invalid user data" });
@@ -85,6 +86,7 @@ const loginUser = async (req, res, next) => {
         name: user.name,
         username: user.username,
         token: generateJWT(user._id),
+        createdAt: user.createdAt,
       });
     } else {
       res.status(400);

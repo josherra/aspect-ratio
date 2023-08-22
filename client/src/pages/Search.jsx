@@ -31,7 +31,7 @@ export const Search = () => {
   };
 
   return (
-    <>
+    <div className="p-4 flex flex-col mx-auto w-2/3 max-w-screen-xl">
       <SearchInput
         search={search}
         setSearch={setSearch}
@@ -42,6 +42,6 @@ export const Search = () => {
         params={params}
       />
       <SearchResults results={results} />
-    </>
+    </div>
   );
 };
