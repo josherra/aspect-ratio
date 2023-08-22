@@ -6,7 +6,7 @@ import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Admin } from "./components/Admin";
 import { Missing } from "./pages/Missing";
-import { GameDetail } from "./components/Game/GameDetail";
+import { GameDetail } from "./pages/GameDetail";
 import { Search } from "./pages/Search";
 
 function App() {

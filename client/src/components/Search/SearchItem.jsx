@@ -37,7 +37,9 @@ export const SearchItem = ({ game }) => {
       <div className="ml-8">
         <h2 className="text-2xl text-bold text-white">
           {game.name}{" "}
-          <span className="text-xs font-thin">{game.release_dates[0].y}</span>
+          <span className="text-xs font-thin">
+            {game.release_dates ? game.release_dates[0].y : null}
+          </span>
         </h2>
       </div>
     </div>
